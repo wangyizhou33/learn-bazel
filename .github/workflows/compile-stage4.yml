@@ -19,6 +19,9 @@ on:
         - warning
         - debug
 
+env:
+  USE_BAZEL_VERSION: 6.3.2
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -29,13 +32,11 @@ jobs:
 
     - name: Set up Bazel
       uses: bazelbuild/setup-bazelisk@v3
-      with:
-        version: 6.0.0
 
     - name: Build all targets
       run: |
-        bazel build //:all
+        bazel build //...
 
     - name: Test all targets
       run: |
-        bazel test //:all
+        bazel test //...
