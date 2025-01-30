@@ -1,0 +1,30 @@
+name: Build and Test Stage4
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Bazel
+      uses: bazelbuild/setup-bazel@v4
+      with:
+        version: 6.0.0
+
+    - name: Build Stage4 targets
+      run: |
+        bazel build //stage4:all
+
+    - name: Test Stage4 targets
+      run: |
+        bazel test //stage4:all
