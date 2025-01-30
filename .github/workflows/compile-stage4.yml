@@ -19,9 +19,6 @@ on:
         - warning
         - debug
 
-env:
-  USE_BAZEL_VERSION: 6.3.2
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
