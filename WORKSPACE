@@ -2,12 +2,13 @@
 # This file is used to define the workspace for Bazel builds.
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-http_archive(
+
+git_repository(
     name = "com_github_gflags_gflags",
-    sha256 = "34af2f15cf7367513b352bdcd2493ab14ce43692d2dcd9dfc499492966c64dcf",
-    strip_prefix = "gflags-2.2.2",
-    urls = ["https://github.com/gflags/gflags/archive/v2.2.2.tar.gz"],
+    commit = "518267d34f178ee3c5409d67e71d040c49f47f16",
+    remote = "https://github.com/gflags/gflags.git",
 )
 
 http_archive(
