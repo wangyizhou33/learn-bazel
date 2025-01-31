@@ -4,11 +4,18 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
-
-git_repository(
+new_local_repository(
     name = "com_github_gflags_gflags",
-    commit = "518267d34f178ee3c5409d67e71d040c49f47f16",
-    remote = "https://github.com/gflags/gflags.git",
+    path = "./gflags",
+    build_file_content = """
+cc_library(
+    name = "gflags",
+    srcs = ["lib/libgflags.so"], 
+    hdrs = glob(["include/gflags/*.h"]),
+    includes = ["include"],
+    visibility = ["//visibility:public"],
+)
+""",
 )
 
 http_archive(
