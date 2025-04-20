@@ -1,51 +1,24 @@
-# Examples to build C++ code
-
-This package will showcase how to build C++ code in stages.
-
-### Stage 1
-The first stage is really simple and shows you how to compile a binary with a single source file.
-
-### Stage 2
-The second stage will showcase how to build an application with multiple source and header files, separated in a library and a binary.
-
-### Stage 3
-The third stage showcases how to link multiple build directories by building multiple libraries in different packages and then connecting it up with the main application.
-
-
-### To run 
-
-```
-source setup.sh
-cd stage1
-dkb bazel --output_user_root=./tmp/build_output  build //main:hello-world 
+## HOW TO BUILD
+To build all targets
+```sh
+# at root dir
+bazel clean --expunge
+bazel build --config=all_targets
 ```
 
-### Lib visibility
-1. `hdrs = ["hello-time.h"]`  required in the library
+p.s. `bazel build //...` won't work for `local_repository` method. 
 
-    ```
-    fatal error: lib/hello-time.h: No such file or directory
-    ```
-2. `visibility = ["//main:__pkg__"]` required in the library 
-
-    ```
-    in cc_binary rule //main:hello-world: target '//lib:hello-time' is not visible from target '//main:hello-world'
-    ```
-3.  `deps = [...]` required (i.e declaring dependency like `target_link_libraries`) in the executable   
-
-    ```
-    lib/hello-time.h: No such file or directory
-    ```
-
-### Glob 
+One can build project2 independently because it is self contained.
+```sh
+cd project2
+bazel build //...
 ```
-    srcs = glob(["*.cc"]), # picks up all .cc files in the BUILD directory
-    hdrs = glob(["*.h"]),  # picks up all .h files
+However, you cannot do this with **project1** or **test** because they dependent on other projects (e.g. **project2**). 
+
+They can be built at the root dir
+```sh
+bazel build @project1//...
+or 
+bazel build @test//...
 ```
-That is, the following diff does not change the outcome.
-```diff
--    srcs = ["hello-time.cc"],
--    hdrs = ["hello-time.h"],
-+    srcs = glob(["*.cc"]),
-+    hdrs = glob(["*.h"]),
-```
+Bazel will configure what dependent projects to be built prior to them.
