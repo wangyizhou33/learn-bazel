@@ -33,6 +33,12 @@ local_repository(
 
 new_local_repository(
     name = "com_github_gflags_gflags",
-    path = "gflags",
+    path = "target",
     build_file = "//:gflag.BUILD",
+)
+
+new_local_repository(
+    name = "nlohmann_json",
+    path = "target",
+    build_file = "//:nlohmann_json.BUILD",
 )
