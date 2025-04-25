@@ -3,7 +3,7 @@ To build all targets
 ```sh
 # at root dir
 bazel clean --expunge
-bazel build --config=all_targets
+bazel build --config=all_targets --dynamic_mode=fully
 ```
 
 p.s. `bazel build //...` won't work for `local_repository` method. 
