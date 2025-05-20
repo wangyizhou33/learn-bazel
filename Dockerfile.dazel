@@ -1,0 +1,8 @@
+FROM ubuntu:24.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl gnupg build-essential
+
+COPY ./bazelisk-arm64.deb /tmp/bazelisk-arm64.deb
+RUN dpkg -i /tmp/bazelisk-arm64.deb && rm /tmp/bazelisk-arm64.deb
+
+ENV PATH="/user/local/bin:${PATH}"
