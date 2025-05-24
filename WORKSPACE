@@ -66,3 +66,9 @@ new_local_repository(
     path = "target",
     build_file = "//:nlohmann_json.BUILD",
 )
+
+new_local_repository(
+    name = "executable",
+    path = "target",
+    build_file = "//:mini.BUILD",
+)

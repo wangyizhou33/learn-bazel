@@ -11,8 +11,16 @@ cc_binary(
     visibility = ["//visibility:public"],
 )
 
+cc_binary(
+    name = "mini",
+    srcs = ["mini.cpp"],
+    deps = [],
+    visibility = ["//visibility:public"],
+)
+
 pkg_tar(
     name = "package",
-    srcs = [":hello_world"],  # Include all outputs of the target
+    srcs = [":hello_world",
+            ":mini"],  # Include all outputs of the target
     package_dir = "bin",
 )
